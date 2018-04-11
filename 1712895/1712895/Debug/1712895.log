@@ -1,4 +1,3 @@
 ﻿  1712895.cpp
-c:\users\administrator\desktop\doan_01\1712895\1712895\1712895.cpp(24): warning C4477: 'fprintf' : format string '%d' requires an argument of type 'int', but variadic argument 4 has type 'int *'
   1712895.vcxproj -> C:\Users\Administrator\Desktop\doan_01\1712895\Debug\1712895.exe
   1712895.vcxproj -> C:\Users\Administrator\Desktop\doan_01\1712895\Debug\1712895.pdb (Full PDB)

@@ -1,18 +1,19 @@
-#define _CRT_SECURE_NO_WARNINGS
+﻿#define _CRT_SECURE_NO_WARNINGS
 #include<stdio.h>
 #include<malloc.h>
 #include<string.h>
+#include<wchar.h>
 
 struct sinhvien
 {
-	char MSSV[10];
-	char hoten[30];
-	char khoa[30];
+	wchar_t MSSV[10];
+	wchar_t hoten[30];
+	wchar_t khoa[30];
 	int nam;
-	char ngaysinh[10];
-	char hinh[50];
-	char mota[1000];
-	char sothich[1000];
+	wchar_t ngaysinh[10];
+	wchar_t hinh[50];
+	wchar_t mota[1000];
+	wchar_t sothich[1000];
 };
 typedef struct sinhvien SV;
 
@@ -20,30 +21,45 @@ void docfile(FILE* f,SV &a,FILE*out)
 {
 	
 	{
-		fscanf(f,"%[^,],%[^,],%[^,],%d,%[^,],%[^,],%[^,],%[^'\n']", &a.MSSV, &a.hoten,&a.khoa,&a.nam,&a.ngaysinh,&a.hinh,&a.mota,&a.sothich);
-		fprintf(out, "%s,%s,%s,%d,%s,%s,%s,%s", &a.MSSV, &a.hoten, &a.khoa, &a.nam, &a.ngaysinh, &a.hinh, &a.mota, &a.sothich);
+
+		fwscanf(f,L"%[^,],%[^,],%[^,],%d,%[^,],%[^,],%[^,],%[^\n]\n", &a.MSSV, &a.hoten,&a.khoa,&a.nam,&a.ngaysinh,&a.hinh,&a.mota,&a.sothich);
+		fwprintf(out, L"%s,%s", a.MSSV,a.hoten);
 
 	}
 	
 	
 }
-
+int sodong(FILE*f)
+{
+	int b = 1;
+	wchar_t line[255];
+	while (fgetws(line, 255, f))
+	{
+		b++;
+	}
+	return b;
+}
 
 void main()
 {
 	int *n=NULL;
 	SV b;
-	FILE*f;
-	f = fopen("C:\\Users\\Administrator\\Desktop\\doan_01\\thongtinsv.csv", "rt");
+	FILE*f=NULL;
+	f = _wfopen(L"C:\\Users\\Administrator\\Desktop\\doan_01\\thongtinsv.csv", L"r,ccs=UTF-16LE");
 	FILE*out;
-	out = fopen("C:\\Users\\Administrator\\Desktop\\doan_01\\thu.csv", "wt");
+	out = _wfopen(L"C:\\Users\\Administrator\\Desktop\\doan_01\\thu.csv", L"w,ccs=UTF-16LE");
 	if (f == NULL)
 	{
-		printf("khong tim thay file ");
+		wprintf(L"không tìm thấy file ");
 	}
 
 	docfile(f,b,out);
 	
+	
+	for (int i = 0; i < sodong(f); i++)
+	{
+		docfile(f, b, out);
+	}
 	fclose(out);
 	fclose(f);
 }
