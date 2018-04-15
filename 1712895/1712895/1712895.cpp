@@ -3,7 +3,6 @@
 #include<malloc.h>
 #include<string.h>
 #include<wchar.h>
-
 struct sinhvien
 {
 	wchar_t MSSV[10];
@@ -17,49 +16,36 @@ struct sinhvien
 };
 typedef struct sinhvien SV;
 
-void docfile(FILE* f,SV &a,FILE*out)
+void docfilesv(FILE* f, SV a[],int &i)
 {
-	
-	{
-
-		fwscanf(f,L"%[^,],%[^,],%[^,],%d,%[^,],%[^,],%[^,],%[^\n]\n", &a.MSSV, &a.hoten,&a.khoa,&a.nam,&a.ngaysinh,&a.hinh,&a.mota,&a.sothich);
-		fwprintf(out, L"%s,%s", a.MSSV,a.hoten);
-
+	 i = 0;
+	while (!feof(f)) {
+	fwscanf(f, L"%[^,],%[^,],%[^,],%d,%[^,],%[^,],%[^,],%[^\n]\n", &a[i].MSSV, &a[i].hoten, &a[i].khoa, &a[i].nam, &a[i].ngaysinh, &a[i].hinh, &a[i].mota, &a[i].sothich);
+	i++;
 	}
-	
-	
+
 }
-int sodong(FILE*f)
-{
-	int b = 1;
-	wchar_t line[255];
-	while (fgetws(line, 255, f))
-	{
-		b++;
-	}
-	return b;
-}
+
+
+
 
 void main()
 {
-	int *n=NULL;
-	SV b;
-	FILE*f=NULL;
-	f = _wfopen(L"C:\\Users\\Administrator\\Desktop\\doan_01\\thongtinsv.csv", L"r,ccs=UTF-16LE");
+	
+	
+	FILE*f;
+	f = _wfopen(L"C:\\Users\\Administrator\\Desktop\\doan_01\\thongtin.csv", L"r,ccs=UTF-16LE");
 	FILE*out;
 	out = _wfopen(L"C:\\Users\\Administrator\\Desktop\\doan_01\\thu.csv", L"w,ccs=UTF-16LE");
 	if (f == NULL)
 	{
-		wprintf(L"không tìm thấy file ");
+		wprintf(L"khong tim thay file ");
 	}
-
-	docfile(f,b,out);
+	SV sv[100];
+	int i;
+	docfilesv(f, sv,i);
 	
 	
-	for (int i = 0; i < sodong(f); i++)
-	{
-		docfile(f, b, out);
-	}
 	fclose(out);
 	fclose(f);
 }
