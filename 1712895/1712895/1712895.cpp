@@ -171,12 +171,15 @@ void mohtml(int &i,SV a[])
 				xoa(dong, vitrichuoi(dong, L"(11)"), 4);
 
 			}
-			if (vitrichuoi(dong, L"Tôi là một người "))
+			if (vitrichuoi(dong, L"(12)"))
 			{
+
 				wcscpy(temp, a[i].mota);
-				chenchuoivaovitri(dong, temp, vitrichuoi(dong, L"Tôi là một người ") + wcslen(L"Tôi là một người "));
-					}
-			fwprintf(out,L"%s", dong);
+				chenchuoivaovitri(dong, temp, vitrichuoi(dong, L"(12)") + wcslen(L"(12)"));
+				xoa(dong, vitrichuoi(dong, L"(12)"), 4);
+
+			}
+			fwprintf(out, L"%s", dong);
 		}
 		fclose(html);
 		fclose(out);
